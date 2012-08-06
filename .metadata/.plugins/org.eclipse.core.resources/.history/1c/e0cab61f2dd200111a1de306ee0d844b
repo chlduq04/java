@@ -1,0 +1,14 @@
+import java.util.List;
+
+
+public class Mlist {
+
+    public static List<Fields> listData;
+    
+    public void setList(List<Fields> list){
+        this.listData = list;
+    }
+    public List<Fields> getList(){
+        return listData;
+    }
+}

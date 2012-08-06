@@ -1,0 +1,192 @@
+package org.codenamu.lulurara.ui;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.StringTokenizer;
+
+import org.codenamu.lulurara.R;
+import org.codenamu.lulurara.data.m_parser;
+
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.Toast;
+
+import com.google.android.maps.GeoPoint;
+import com.google.android.maps.ItemizedOverlay;
+import com.google.android.maps.MapActivity;
+import com.google.android.maps.MapController;
+import com.google.android.maps.MapView;
+import com.google.android.maps.MyLocationOverlay;
+import com.google.android.maps.OverlayItem;
+
+public class LuluraraActivity extends MapActivity {
+    private MyLocationOverlay me = null;
+    private Context context;
+    private m_parser markers;
+    private Location location;
+    private MapView mapView;
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.main);
+        requestLocation(0);
+        context = this;
+        markers = new m_parser("http://www.culture.go.kr/openapi/rest/publicperformancedisplays/area?rows=999&serviceKey=D1yyEu8AyO6FzCZ%2BaxokkVM8tpT6im7WFNB84Aewz9jXN5YkIA9txn1HRGx%2B3pZCidW3%2BNnRrbT1vc5QWFImxA%3D%3D");
+    }
+
+    //주석처럼 하면 좋지만 안되니까..
+    public void clickMusic(View v){
+        mapView.getOverlays().clear();
+        markers = new m_parser("http://www.culture.go.kr/openapi/rest/publicperformancedisplays/area?keyword=음악&rows=999&serviceKey=D1yyEu8AyO6FzCZ%2BaxokkVM8tpT6im7WFNB84Aewz9jXN5YkIA9txn1HRGx%2B3pZCidW3%2BNnRrbT1vc5QWFImxA%3D%3D");
+        requestLocation(v.getId());
+    }
+    public void clickDance(View v){
+        mapView.getOverlays().clear();
+        markers = new m_parser("http://www.culture.go.kr/openapi/rest/publicperformancedisplays/area?keyword=댄스&rows=999&serviceKey=D1yyEu8AyO6FzCZ%2BaxokkVM8tpT6im7WFNB84Aewz9jXN5YkIA9txn1HRGx%2B3pZCidW3%2BNnRrbT1vc5QWFImxA%3D%3D");
+        requestLocation(v.getId());
+    }
+    public void clickMusical(View v){
+        mapView.getOverlays().clear();
+        markers = new m_parser("http://www.culture.go.kr/openapi/rest/publicperformancedisplays/area?keyword=뮤지컬&rows=999&serviceKey=D1yyEu8AyO6FzCZ%2BaxokkVM8tpT6im7WFNB84Aewz9jXN5YkIA9txn1HRGx%2B3pZCidW3%2BNnRrbT1vc5QWFImxA%3D%3D");
+        requestLocation(v.getId());
+    }
+    public void clickEtc(View v){
+        mapView.getOverlays().clear();
+        markers = new m_parser("http://www.culture.go.kr/openapi/rest/publicperformancedisplays/area?rows=999&serviceKey=D1yyEu8AyO6FzCZ%2BaxokkVM8tpT6im7WFNB84Aewz9jXN5YkIA9txn1HRGx%2B3pZCidW3%2BNnRrbT1vc5QWFImxA%3D%3D");
+        requestLocation(v.getId());
+    }
+    
+    @Override
+    protected boolean isRouteDisplayed() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    private void animateTo(Location loc,int arg) {
+        mapView = (MapView)findViewById(R.id.mapview);		
+        mapView.setBuiltInZoomControls(true);
+        int marker_id;
+        switch(arg)
+        {
+        case R.id.bt_musical:
+            marker_id = R.drawable.musical;
+            break;
+        case R.id.bt_music:
+            marker_id =R.drawable.music;
+            break;
+        case R.id.bt_dance:
+            marker_id =R.drawable.dance;
+            break;
+        case R.id.bt_etc:
+            marker_id =R.drawable.marker;
+            break;
+        default:
+            marker_id =R.drawable.marker;
+            break;
+        }
+        mapView.getOverlays().add(new SiteOverlay(getResources().getDrawable(marker_id)));
+
+        MapController controller = mapView.getController();
+        GeoPoint point = getPoint(loc.getLatitude(), loc.getLongitude());
+        controller.animateTo(point);
+        controller.setZoom(15);
+    }
+
+    private void requestLocation(final int arg) {
+        LocationManager lm = (LocationManager)getSystemService(LOCATION_SERVICE);
+
+        lm.requestLocationUpdates(
+                LocationManager.NETWORK_PROVIDER, 
+                0, 
+                100, 
+                new LocationListener() {
+
+                    public void onStatusChanged(String provider, int status, Bundle extras) {
+                        // TODO Auto-generated method stub
+                    }
+                    public void onProviderEnabled(String provider) {
+                        // TODO Auto-generated method stub
+                    }
+                    public void onProviderDisabled(String provider) {
+                        // TODO Auto-generated method stub
+                    }
+                    public void onLocationChanged(Location location) {
+                        // TODO Auto-generated method stub
+                        animateTo(location,arg);
+                    }
+                });
+    }
+
+
+    private GeoPoint getPoint(double lat, double lon){
+        //		return (new GeoPoint((int) (lat * 1000000.0), (int) (lon * 1000000.0)));
+        return (new GeoPoint((int) (lat * 1E6), (int) (lon * 1E6)));
+    }
+
+    private class SiteOverlay extends ItemizedOverlay<OverlayItem>{
+        private Drawable marker = null;
+        private List<OverlayItem> items = new ArrayList<OverlayItem>();
+        private StringTokenizer tk;
+
+        public SiteOverlay(Drawable marker) {
+            super(marker);
+            this.marker = marker;
+
+            ArrayList<HashMap<String, String>> list = markers.getListBoard();
+
+            for(int i =0;i<list.size(); i++){
+                HashMap<String, String> map = list.get(i);    
+                if((map.containsKey("gpxY") || map.containsKey("gpsX"))){
+                    items.add(new OverlayItem(getPoint(Double.parseDouble(map.get("gpxY")), Double.parseDouble(map.get("gpsX"))), map.get("title"), map.get("seq")));
+                }
+            }
+            populate();
+        }
+
+        @Override
+        protected OverlayItem createItem(int i) {
+            // TODO Auto-generated method stub
+            return items.get(i);
+        }
+
+
+        @Override
+        public void draw(Canvas canvas, MapView mapView, boolean shadow) {
+            super.draw(canvas, mapView, shadow);
+            boundCenterBottom(marker);
+        }
+
+        @Override
+        protected boolean onTap(int index) {
+            Toast.makeText(context, items.get(index).getTitle(), Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(LuluraraActivity.this, DetailActivity.class);
+            intent.putExtra("SEQ", items.get(index).getSnippet());
+            startActivity(intent);
+            return true;
+        }
+
+        @Override
+        public int size() {
+            return items.size();
+        }
+
+    }
+
+    public void test(View view){
+        Intent intent = new Intent(LuluraraActivity.this, DetailActivity.class);
+        startActivity(intent);
+    }
+}

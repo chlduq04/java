@@ -1,0 +1,82 @@
+package com.first.google_m;
+import java.util.StringTokenizer;
+
+import com.google.gson.annotations.SerializedName;
+public class Fields {
+    @SerializedName("fields")
+    public Object fields;
+    private String content;
+    private int addrX;
+    private int addrY;
+    private String title;
+    private String addr;
+    StringTokenizer tok;
+
+    public void setAddr(String arg){
+        tok = new StringTokenizer(arg,"=");
+        tok.nextToken();
+        addr=tok.nextToken();
+
+    }
+    public void setTitle(String arg){
+        tok = new StringTokenizer(arg,"=");
+        tok.nextToken();
+        if(tok.hasMoreTokens())
+            title = tok.nextToken();
+        else
+            title = "시장";
+    }
+    public void setContent(String arg){
+        tok = new StringTokenizer(arg,"=");
+        tok.nextToken();
+        if(tok.hasMoreTokens())
+            content= tok.nextToken();
+        else
+            content = "시장";
+    }
+    public void setAddrX(String arg){
+        tok = new StringTokenizer(arg,"=");
+        tok.nextToken();
+        arg = tok.nextToken();
+        if(arg.trim().equals(""))
+            addrX = 1;
+        else
+            addrX = (int)(Double.parseDouble(arg)*1e6);
+    }
+    public void setAddrY(String arg){
+        tok = new StringTokenizer(arg,"=");
+        tok.nextToken();
+        arg=tok.nextToken();
+        if(arg.trim().equals(""))
+            addrY = 1;
+        else
+            addrY = (int)(Double.parseDouble(arg)*1e6);
+    }
+    public String getTitle()
+    {
+        return title;
+    }
+    public String getContent()
+    {
+        return content;
+    }
+    public int getAddrX()
+    {
+        return addrX;
+    }
+    public String getAddr()
+    {
+        return addr;
+    }
+    public int getAddrY()
+    {
+        return addrY;
+    }
+
+    //    public Fields()
+    //    {
+    //        StringTokenizer tk = new StringTokenizer(fields.toString(),"{,}",true);
+    //        tk.nextElement();
+    //    }
+
+}

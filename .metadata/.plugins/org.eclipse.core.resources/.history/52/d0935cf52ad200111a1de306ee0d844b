@@ -1,0 +1,42 @@
+import com.google.gson.annotations.SerializedName;
+
+
+public class Fields {
+
+   // @SerializedName("content")
+    public String content;
+    
+    //@SerializedName("Addr_X")
+    public String addrX;
+
+//    @SerializedName("Addr_Y")
+    public String addrY;
+    
+ //   @SerializedName("Title")
+    public String title;
+    
+    public String mTitle(){
+        return title;
+    }
+    public String mContent(){
+        return content;
+    }
+    public String mAddrX(){
+        return addrX;
+    }
+    public String mAddrY(){
+        return addrY;
+    }
+    public void setContent(String arg){
+        this.content= arg;
+    }
+    public void setAddrx(String arg){
+        this.addrX = arg;
+    }
+    public void setAddrY(String arg){
+        this.addrY = arg;
+    }
+    public void setTitle(String arg){
+        this.title = arg;
+    }
+}

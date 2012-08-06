@@ -1,0 +1,126 @@
+package com.example.ooyou;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
+
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.app.Activity;
+import android.app.ProgressDialog;
+import android.util.Log;
+import android.view.Menu;
+import android.view.View;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
+
+public class SearchActivity extends Activity {
+    private ProgressDialog loadingDialog;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_search);
+    }
+    public void createThredAndDialog(){
+        loadingDialog =  ProgressDialog.show(this,"UPLOADING","loading...please wait",true,false);
+        Thread thread =  new Thread(new Runnable() {
+
+            public void run() {
+                upload();
+                // TODO Auto-generated method stub
+                handler.sendEmptyMessage(0);
+            }
+        });
+
+    }
+    private Handler handler = new Handler(){
+        public void handleMessage(Message msg){
+            loadingDialog.dismiss();
+        }
+    };
+    
+    public String nowLoc(View v)
+    {
+        return "";
+    }
+    public void commentInput(View v)
+    {
+        createThredAndDialog();
+    }
+    public void upload()
+    {
+        String title = ((EditText)findViewById(R.id.title_input_field)).getText().toString();
+        String location = ((EditText)findViewById(R.id.location_input_field)).getText().toString();
+        String info = ((EditText)findViewById(R.id.info_input_field)).getText().toString();
+        if(first(title,location,info).equals("SUCCESS")){
+            ((TextView)findViewById(R.id.upload_info)).setText("SUCCESS!");
+        }
+        else{
+            ((TextView)findViewById(R.id.upload_info)).setText("FAIL...");
+        }
+    }
+    public String first(String Title,String loct,String comment){
+        String result="Can't Find Location";
+        try{
+            String loc_en = URLEncoder.encode(loct);
+            URI mUrl = new URI("http://192.168.0.60:8000/mobile/searchloc/");
+            HttpClient httpClient = new DefaultHttpClient();
+            HttpPost httppost = new HttpPost(mUrl);
+            List<NameValuePair> Mmassage = new ArrayList<NameValuePair>(3);
+            Mmassage.add(new BasicNameValuePair("Title",Title));
+            Mmassage.add(new BasicNameValuePair("Location",loct));
+            Mmassage.add(new BasicNameValuePair("Loc_encode", loc_en));
+            Mmassage.add(new BasicNameValuePair("Comment",comment));
+
+            httppost.setEntity(new UrlEncodedFormEntity(Mmassage,"UTF-8"));            
+            HttpResponse response = httpClient.execute(httppost);
+            BufferedReader in = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+            StringBuffer sb = new StringBuffer("");
+            String line = "";
+            String NL = System.getProperty("line.separator");
+            while ((line = in.readLine()) != null) {
+                sb.append(line + NL);
+            }
+            in.close();
+            result = sb.toString();
+        }
+        catch(Exception e){
+            return result;
+        }
+        return "SUCCESS";
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_search, menu);
+        return true;
+    }
+}
+

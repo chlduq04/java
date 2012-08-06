@@ -1,0 +1,23 @@
+package com.first.google_m;
+
+import java.util.ArrayList;
+
+public class Inner {
+    public String pk;
+    public String model;
+    public ArrayList<String> fields;
+    
+    public Inner(){}
+    public void setPk(String pk)
+    {this.pk=pk;}
+    public String getPk()
+    {return pk;}
+    public void setModel(String model)
+    {this.model = model;}
+    public String getModel()
+    {return model;}
+    public void setFields(ArrayList<String> fields)
+    {this.fields = fields;}
+    public ArrayList<String> getField()
+    {return fields;}
+}

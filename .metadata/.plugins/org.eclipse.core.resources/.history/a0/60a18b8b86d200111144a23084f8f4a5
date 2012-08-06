@@ -1,0 +1,54 @@
+package com.example.culture;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import My.RSS.Start.R;
+import android.os.Bundle;
+import android.os.Vibrator;
+import android.app.Activity;
+import android.content.Context;
+import android.view.Menu;
+import android.view.WindowManager;
+import android.widget.ListView;
+import android.widget.SimpleAdapter;
+import android.widget.TextView;
+
+public class MainActivity extends Activity {
+
+    private ArrayList<HashMap<String, String>> list_board = new ArrayList<HashMap<String, String>>();
+    private HashMap<String, String> map;
+    private SimpleAdapter sa;
+    private ArrayList<String> contents;
+    //private ArrayList<String> rss_list;
+
+    static final int PROGRESS_DIALOG = 0;
+    private ListView lv;
+    private TextView status;
+    private static final int MSG_PASSING =1;
+    
+
+    
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        final Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+         //이까지 기본
+        status = (TextView)findViewById(R.id.textView1);
+        lv = (ListView)findViewById(R.id.listView1);
+
+        //뷰와 리스트 id 검색후 할당
+        sa = new SimpleAdapter(this, list_board, R.layout.borad, new String[]{"subject", "date", "writer"},new int[]{R.id.board_subject, R.id.board_date, R.id.board_writer});
+        lv.setAdapter(sa);
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_main, menu);
+        return true;
+    }
+}

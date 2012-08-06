@@ -1,0 +1,92 @@
+package com.first.google_m;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.List;
+
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.view.Menu;
+
+import com.first.google_m.R.drawable;
+import com.google.android.maps.GeoPoint;
+import com.google.android.maps.ItemizedOverlay;
+import com.google.android.maps.MapActivity;
+import com.google.android.maps.MapController;
+import com.google.android.maps.MapView;
+import com.google.android.maps.OverlayItem;
+import com.google.android.maps.Overlay;
+import com.google.gson.*;
+public class MainActivity extends MapActivity {
+    private itemOverlay itemOverlay;
+    private MapView mapView;
+    private List<Overlay> mapOverlays;
+    private Drawable drawMarker;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        mapView = (MapView) findViewById(R.id.mapview);
+        mapView.setBuiltInZoomControls(true);  //줌컨트롤을 활성
+        
+        MapController mc = mapView.getController();
+        mc.animateTo(new GeoPoint(37517180,127041268));
+        mc.setZoom(15);
+        
+        mapOverlays= mapView.getOverlays();
+        drawMarker = this.getResources().getDrawable(R.drawable.androidmarker);
+        OverlayItem item1 = new OverlayItem(new GeoPoint(37517180,127041268),"What args?", "Title");
+        
+        
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_main, menu);
+        return true;
+    }
+    @Override
+    protected boolean isRouteDisplayed() {
+        // TODO Auto-generated method stub
+        return false;
+    }
+}
+class Connect_db {
+    private String name;
+    private String address;
+    private String desc; 
+    public Connect_db()
+    {
+        URL url;
+        HttpURLConnection conn;
+        try {
+            url = new URL("http://192.168.0.60:8000/mobilemap");
+            conn = (HttpURLConnection)url.openConnection();
+            if(conn.getResponseCode()==HttpURLConnection.HTTP_OK){
+                InputStream input = conn.getInputStream();
+                Reader reader = new InputStreamReader(input);
+                BufferedReader br = new BufferedReader(reader);
+                String strjson ="";
+                String read = null;
+                while((read=br.readLine())!=null){strjson+=read;};
+                System.out.print(strjson);
+                
+                Gson j = new Gson();
+                
+                input.close();
+                reader.close();
+            }
+        } catch (MalformedURLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+}

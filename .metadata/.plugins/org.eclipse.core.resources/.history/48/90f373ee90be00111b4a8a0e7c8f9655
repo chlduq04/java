@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+	<EditText android:id="@+id/editText1" android:layout_width="fill_parent"
+		android:text="http://www.dsu.ac.kr/nbd060200/rss"
+		android:layout_height="40dip" android:hint="주소"></EditText>
+	<Button android:layout_width="fill_parent" android:id="@+id/button1"
+		android:text="RSS 불러오기" android:layout_height="wrap_content"></Button>
+	<TextView android:text="파싱정보" android:id="@+id/textView1"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+	<ListView android:layout_height="fill_parent" android:layout_width="fill_parent" android:id="@+id/listView1"></ListView>
+</LinearLayout>
+

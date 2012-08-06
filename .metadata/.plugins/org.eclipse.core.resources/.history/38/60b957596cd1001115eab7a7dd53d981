@@ -1,0 +1,40 @@
+package my.googlemap.toAndroid;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Rect;
+public class Contents {
+    private String name;
+    private String address;
+    private String tel;
+    private String hamepage;
+    private String desc;
+    private Bitmap icon;
+    private double latitude;
+    private double longitude;
+    private int distance;
+    private int azimuth;
+    private Rect rect;
+    
+    public Contents()
+    {
+        try {
+            URL url = new URL("http://192.168.0.60:8000/admin");
+            HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+            if(conn.getResponseCode()==HttpURLConnection.HTTP_OK){
+                InputStream is = conn.getInputStream();
+            }
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+}
+

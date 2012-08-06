@@ -1,0 +1,90 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/frontimg" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_margin="10dip"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="10dip"
+            android:layout_weight="0.1"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/title_input_field"
+                android:layout_width="10dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.8" >
+            </EditText>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="10dip"
+            android:layout_weight="0.1"
+            android:orientation="horizontal" >
+
+            <EditText
+                android:id="@+id/location_input_field"
+                android:layout_width="10dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.8" >
+            </EditText>
+
+            <Button
+                android:layout_width="10dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.2"
+                android:background="@drawable/manubutton"
+                android:onClick="nowLoc" >
+            </Button>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="10dip"
+            android:layout_weight="0.7" >
+
+            <EditText
+                android:id="@+id/info_input_field"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:ems="10"
+                android:inputType="textMultiLine" >
+
+                <requestFocus />
+            </EditText>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="10dip"
+            android:layout_weight="0.1" >
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="10dip"
+            android:layout_weight="0.1" >
+
+            <Button
+                android:text="@string/search_submit"
+                android:id="@+id/input_my_location"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_margin="5dip"
+                android:background="@drawable/manubutton"
+                android:onClick="commentInput" >
+            </Button>
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

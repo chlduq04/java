@@ -1,0 +1,25 @@
+package com.first.google_m;
+
+import java.util.ArrayList;
+import java.util.Map;
+
+import com.google.gson.internal.StringMap;
+
+public class Inner {
+    public int pk;
+    public String model;
+    public StringMap<String> fields;
+    
+    public void setPk(int pk)
+    {this.pk=pk;}
+    public int getPk()
+    {return pk;}
+    public void setModel(String model)
+    {this.model = model;}
+    public String getModel()
+    {return model;}
+    public void setFields(StringMap<String> fields)
+    {this.fields = fields;}
+    public Map<String,String> getField()
+    {return fields;}
+}

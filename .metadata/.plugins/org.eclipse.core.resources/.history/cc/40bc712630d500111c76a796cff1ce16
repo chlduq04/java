@@ -1,0 +1,37 @@
+package com.first.google_m;
+
+import java.util.ArrayList;
+import java.util.Map;
+
+import com.google.gson.internal.StringMap;
+
+public class Inner {
+    public int pk;
+    public String model;
+    public Map<String,String> fields;
+    
+    public int getPk()
+    {return pk;}
+    public String getModel()
+    {return model;}
+    public Map<String,String> getField()
+    {return fields;}
+}
+class InnerChild{
+    String Content;
+    String Addr_X;
+    String Addr_Y;
+    String mAddr;
+    String Title;
+    
+    public String getContent()
+    {return Content;}
+    public String getAddrX()
+    {return Addr_X;}
+    public String getAddrY()
+    {return Addr_Y;}
+    public String getMaddr()
+    {return mAddr;}
+    public String getTitle()
+    {return Title;}
+}

@@ -1,0 +1,12 @@
+package com.first.google_m;
+
+import java.util.ArrayList;
+
+public class Inner {
+    public String pk;
+    public String model;
+    public ArrayList<E> fields;
+    
+    public Inner(){}
+    
+}

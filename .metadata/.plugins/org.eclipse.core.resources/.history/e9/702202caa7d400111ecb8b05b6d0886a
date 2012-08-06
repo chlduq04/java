@@ -1,0 +1,122 @@
+package com.ver1.culturemap;
+
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserFactory;
+
+public class m_parser {
+	private ArrayList<HashMap<String, String>> list_board = new ArrayList<HashMap<String, String>>();
+    private HashMap<String, String> map;
+    public m_parser(String url)
+    {
+        list_board.clear();
+        try{
+            URL text = new URL(url);
+            XmlPullParserFactory parserCreator = XmlPullParserFactory.newInstance();
+            XmlPullParser parser = parserCreator.newPullParser();
+            
+            parser.setInput(text.openStream(), null);
+
+            int parserEvent = parser.getEventType();
+            String tag = "";
+
+            boolean inTitle = false;
+            boolean inItem = false;
+            boolean inRealmName = false;
+            boolean inPlace = false;
+            boolean ingpsX = false; 
+            boolean ingpsY = false;
+            boolean inSeq  = false;
+
+//            contents.clear();     
+            do{
+                switch(parserEvent){
+                case XmlPullParser.TEXT:
+                    tag = parser.getName();
+                    if(inItem && inTitle){
+                        map.put("title", parser.getText());
+                    }
+                    if(inItem && inRealmName){
+                        map.put("realmName", parser.getText());
+                    }
+                    if(inItem && inPlace){
+                        map.put("place", parser.getText());
+                    }
+                    if(inItem && ingpsX){
+                        map.put("gpsX", parser.getText());
+                    }
+                    if(inItem && ingpsY){
+                        map.put("gpxY", parser.getText());
+                    }
+                    if(inItem && inSeq){
+                        map.put("seq", parser.getText());
+                    }
+                    break;
+
+                case XmlPullParser.END_TAG:
+                    tag = parser.getName();
+                    if(tag.compareTo("perforList") == 0){
+                        inItem = false;
+                        list_board.add(map);
+                    }
+                    if(tag.compareTo("title") == 0){
+                        inTitle = false;
+                    }
+                    if(tag.compareTo("realmName") == 0){
+                        inRealmName = false;
+                    }
+                    if(tag.compareTo("place") == 0){
+                        inPlace= false;
+                    }
+                    if(tag.compareTo("gpsX") == 0){
+                        ingpsX = false;
+                    }
+                    if(tag.compareTo("gpsY") == 0){
+                        ingpsY = false;
+                    }
+                    if(tag.compareTo("seq") == 0){
+                        inSeq = false;
+                    }
+                    break;
+
+                case XmlPullParser.START_TAG:
+                    tag = parser.getName();
+                    if(tag.compareTo("perforList") == 0){
+                        inItem = true;
+                        map = new HashMap<String, String>();
+                    }
+                    if(tag.compareTo("title") == 0){
+                        inTitle = true;
+                    }
+                    if(tag.compareTo("realmName") == 0){
+                        inRealmName = true;
+                    }
+                    if(tag.compareTo("place") == 0){
+                        inPlace = true;
+                    }
+                    if(tag.compareTo("gpsX") == 0){
+                        ingpsX = true;
+                    }
+                    if(tag.compareTo("gpsY") == 0){
+                        ingpsY = true;
+                    }
+                    if(tag.compareTo("seq") == 0){
+                        inSeq = true;
+                    }
+                    break;
+                }
+                parserEvent = parser.next();
+            }while(parserEvent != XmlPullParser.END_DOCUMENT);
+        }catch(Exception e){
+        	e.printStackTrace();
+        }
+        
+    }
+    
+    public ArrayList<HashMap<String, String>> getListBoard(){
+    	return this.list_board;
+    }
+}

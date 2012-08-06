@@ -1,0 +1,21 @@
+<resources>
+
+    <string name="app_name">OoYou</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_front">MainActivity</string>
+    <string name="main_title">App Title</string>
+    <string name="title_activity_manu">MainActivity</string>
+    <string name="front_title">Title</string>
+    <string name="title_activity_detail">MainActivity</string>
+    <string name="title_activity_search">MainActivity</string>
+    <string name="title_activity_exam">MainActivity</string>
+    <string name="search_submit">SUBMIT</string>
+    <string name="manu_map">MAP</string>
+    <string name="manu_add_point">ADD POINT</string>
+    <string name="search_title_hint">ADD POINT</string>
+    <string name="search_location_hint">ADD POINT</string>
+    <string name="search_comments_hint">ADD POINT</string>
+
+</resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="marker_array">
+        <item>공연</item>    
+        <item>미술</item>    
+        <item>연극</item>    
+        <item>영화</item>    
+</resources>

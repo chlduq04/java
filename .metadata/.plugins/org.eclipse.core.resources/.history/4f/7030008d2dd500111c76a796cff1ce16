@@ -1,0 +1,23 @@
+package com.first.google_m;
+
+import java.util.ArrayList;
+import java.util.Map;
+
+public class Inner {
+    public String pk;
+    public Map<String,String> model;
+    public Map<String,String> fields;
+    
+    public void setPk(String pk)
+    {this.pk=pk;}
+    public String getPk()
+    {return pk;}
+    public void setModel(Map<String,String> model)
+    {this.model = model;}
+    public Map<String, String> getModel()
+    {return model;}
+    public void setFields(Map<String, String> fields)
+    {this.fields = fields;}
+    public Map<String,String> getField()
+    {return fields;}
+}

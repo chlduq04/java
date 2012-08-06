@@ -1,0 +1,59 @@
+package com.first.google_m;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.List;
+
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.view.Menu;
+
+import com.first.google_m.R.drawable;
+import com.google.android.maps.GeoPoint;
+import com.google.android.maps.ItemizedOverlay;
+import com.google.android.maps.MapActivity;
+import com.google.android.maps.MapController;
+import com.google.android.maps.MapView;
+import com.google.android.maps.OverlayItem;
+import com.google.android.maps.Overlay;
+import com.google.gson.*;
+public class MainActivity extends MapActivity {
+    private itemOverlay itemOverlay;
+    private MapView mapView;
+    private List<Overlay> mapOverlays;
+    private Drawable drawMarker;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        mapView = (MapView) findViewById(R.id.mapview);
+        mapView.setBuiltInZoomControls(true);  //줌컨트롤을 활성
+        
+        MapController mc = mapView.getController();
+        mc.animateTo(new GeoPoint(37517180,127041268));
+        mc.setZoom(15);
+        
+        mapOverlays= mapView.getOverlays();
+        drawMarker = this.getResources().getDrawable(R.drawable.androidmarker);
+        itemOverlay = new itemOverlay(drawMarker, this);
+        OverlayItem item1 = new OverlayItem(new GeoPoint(37517180,127041268),"What args?", "Title");
+        
+        itemOverlay.addOverlay(item1);
+        mapOverlays.add(itemOverlay);        
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.activity_main, menu);
+        return true;
+    }
+    @Override
+    protected boolean isRouteDisplayed() {
+        return false;
+    }
+}

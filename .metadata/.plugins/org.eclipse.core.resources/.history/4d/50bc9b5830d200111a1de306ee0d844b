@@ -1,0 +1,9 @@
+import com.google.gson.annotations.SerializedName;
+
+
+public class Fields {
+
+    @SerializedName("fields")
+    public Object fields;
+    
+}

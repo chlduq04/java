@@ -1,0 +1,64 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/frontimg"
+        android:orientation="vertical"
+        android:padding="5dip" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="10dip"
+            android:layout_margin="5dip"
+            android:layout_weight="0.1"
+            android:orientation="horizontal" >
+
+            <Button
+                android:layout_margin="10dip"          
+                android:id="@+id/change1_mk_bt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="change_1" 
+                android:background="@drawable/basebuttonimg">
+            </Button>
+
+            <Button
+                android:layout_margin="10dip" 
+                android:id="@+id/change2_mk_bt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="change_2" 
+                android:background="@drawable/basebuttonimg">
+            </Button>
+
+            <Button
+                android:layout_margin="10dip" 
+                android:id="@+id/change3_mk_bt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="change_3" 
+                android:background="@drawable/basebuttonimg">
+            </Button>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="10dip"
+            android:layout_margin="5dip"
+            android:layout_weight="0.9" >
+
+            <com.google.android.maps.MapView
+                android:id="@+id/mapview"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:apiKey="0ixyN8kVFFh2JwOnD0i0amuxF9VhAy9Jy-_OgOA"
+                android:clickable="true" />
+        </LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

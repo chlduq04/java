@@ -1,0 +1,21 @@
+import java.util.StringTokenizer;
+
+import com.google.gson.annotations.SerializedName;
+
+
+public class Fields {
+
+    @SerializedName("fields")
+    public Object fields;
+    public String content;
+    private String addrX;
+    private String addrY;
+    private String title;
+    
+    public Fields()
+    {
+        StringTokenizer tk = new StringTokenizer(fields.toString(),"{,}",true);
+//        tk.nextElement();
+    }
+    
+}
